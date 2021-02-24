@@ -127,8 +127,8 @@ pub struct kfatype {
         seq: *const seqtyp,        //[seqnum]
     }
 
-    #[link(name="voxlap")]
-    extern "C" {
+#[link(name="voxlap")]
+extern "C" {
 
         /// -------------------------  Initialization functions: -------------------------
         pub fn initvoxlap() -> c_int;
@@ -605,9 +605,13 @@ pub struct kfatype {
         pub fn set_anginc(anginc: c_long);
         pub fn get_anginc() -> c_long;
 
+        pub fn set_colfunc(callback: unsafe extern "C" fn(&lpoint3d) -> c_long);
+        pub fn set_jitamount(jitamount: c_long);
+        pub fn get_jitamount() -> c_long;
         pub fn set_fogcol(fogcol: c_long);
         pub fn set_kv6col(kv6col: c_long);
         pub fn set_curcol(curcol: c_long);
+        pub fn get_curcol() -> c_long;
         pub fn set_curpow(curpow: c_float);
         pub fn set_fallcheck(fallcheck: c_long);
 
@@ -618,7 +622,7 @@ pub struct kfatype {
         ///   (Call it after every set* call that removes voxels (subtractive CSG)
         ///   It remembers the location on an internal "check" list that will
         ///   be used in the following call to dofalls())
-pub fn checkfloatinbox (x0: c_long, y0: c_long, z0: c_long, x1: c_long, y1: c_long, z1: c_long);
+        pub fn checkfloatinbox (x0: c_long, y0: c_long, z0: c_long, x1: c_long, y1: c_long, z1: c_long);
 
         /// Call this once per frame (or perhaps at a slower constant rate 20hz-40hz)
         pub fn startfalls ();
@@ -630,7 +634,7 @@ pub fn checkfloatinbox (x0: c_long, y0: c_long, z0: c_long, x1: c_long, y1: c_lo
         ///   (Call this only between a call to startfalls() and
         ///   finishfalls(). You MUST call it either 0 or 1 times between each
         ///   startfalls and finishfalls. (See sample code in GAME.C))
-pub fn dofall (i: c_long);
+        pub fn dofall (i: c_long);
 
         /// Works sort of like meltsphere(), but works with floating sections of the
         ///   .VXL map instead of spheres. This function can be used to make
@@ -649,6 +653,7 @@ pub fn dofall (i: c_long);
         /// Call this once for each startfalls()
         pub fn finishfalls ();
         /// ----------------------- Procedural texture functions: ------------------------
+
         pub fn curcolfunc (p: &lpoint3d) -> c_long;
 
         /// returns color of nearest voxel below the specified point: (x,y,>=z)

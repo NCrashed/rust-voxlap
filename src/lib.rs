@@ -95,6 +95,10 @@ impl vec3 {
         (self.x*self.x + self.y*self.y + self.z*self.z).sqrt()
     }
 
+    pub fn dot(&self, other: vec3) -> f32 {
+        self.x*other.x + self.y*other.y + self.z*other.z
+    }
+
     fn from_point3d(pos: c_api::point3d) -> vec3 {
         let mut vec = vec3::null();
         vec.x = pos.x as f32;
@@ -555,7 +559,7 @@ impl Voxlap {
         }
     }
 
-    pub fn with_hitscan<F>(&mut self, pos: &vec3, dir: &vec3, mut func: F) -> bool  
+    pub fn with_hitscan<F>(&mut self, pos: &vec3, dir: &vec3, mut func: F) -> bool
         where F : FnMut(&mut Voxlap, &mut HitScanResult) {
         let mut voxel_pos = ivec3::new(0, 0, 0);
         let mut face: i32 = 0;
@@ -956,7 +960,7 @@ impl Drop for Image {
 impl Image {
 
     pub fn get_pixel(&self, x: u32, y: u32) -> Color {
-        let elem_count = (self.width * self.height) as u32; 
+        let elem_count = (self.width * self.height) as u32;
         unsafe {
             let slice: &[i32] = std::slice::from_raw_parts(self.ptr as *const i32, elem_count as usize);
             Color::from_i32(slice[(y * self.width + x) as usize])

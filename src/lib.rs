@@ -99,6 +99,15 @@ impl vec3 {
         self.x*other.x + self.y*other.y + self.z*other.z
     }
 
+    pub fn norm(&self) -> vec3 {
+        let l = self.len();
+        vec3 {
+            x: self.x/l,
+            y: self.y/l,
+            z: self.z/l,
+        }
+    }
+
     fn from_point3d(pos: c_api::point3d) -> vec3 {
         let mut vec = vec3::null();
         vec.x = pos.x as f32;

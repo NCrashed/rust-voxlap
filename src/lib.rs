@@ -108,6 +108,30 @@ impl vec3 {
         }
     }
 
+    pub fn cross(&self, other: vec3) -> vec3 {
+        vec3 {
+            x:self.y*other.z-self.z*other.y,
+            y:self.z*other.x-self.x*other.z,
+            z:self.x*other.y-self.y*other.x,
+        }
+    }
+
+    pub fn scale(&self, v:f32) -> vec3 {
+        vec3 {
+            x: self.x*v,
+            y: self.y*v,
+            z: self.z*v,
+        }
+    }
+
+    pub fn to_ivec3(&self) -> ivec3 {
+        ivec3 {
+           x: (self.x + 0.5) as i32,
+           y: (self.y + 0.5) as i32,
+           z: (self.z + 0.5) as i32,
+        }
+    }
+
     fn from_point3d(pos: c_api::point3d) -> vec3 {
         let mut vec = vec3::null();
         vec.x = pos.x as f32;

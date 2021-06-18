@@ -286,8 +286,8 @@ impl Mul<i32> for ivec3 {
 }
 
 pub struct Sprite {
-    ptr: c_api::vx5sprite,
-    managed_by_voxlap: bool
+    pub ptr: c_api::vx5sprite,
+    pub managed_by_voxlap: bool
 }
 
 impl Sprite {
@@ -799,6 +799,23 @@ impl Voxlap {
         }
     }
 
+    pub fn add_light(&mut self, pos: &vec3, flash_radius: f32, intens: f32) -> usize {
+        unsafe {
+            c_api::add_light(pos.x, pos.y, pos.z, flash_radius, intens) as usize
+        }
+    }
+
+    pub fn remove_light(&mut self, i: usize) {
+        unsafe {
+            c_api::remove_light(i as i32);
+        }
+    }
+
+    pub fn lights_num(&mut self) -> usize {
+        unsafe {
+            c_api::get_lights_count() as usize
+        }
+    }
 
     // ---------------------------- VXL MISC functions:  ----------------------------
     // updatebbox

@@ -588,6 +588,10 @@ extern "C" {
 
         pub fn setnormflash(px: c_float, px: c_float, px: c_float, flash_radius: c_long, intens: c_long);
 
+        pub fn add_light(px: c_float, px: c_float, px: c_float, flash_radius: c_float, intens: c_float) -> c_long;
+        pub fn get_lights_count() -> c_long;
+        pub fn remove_light(i: c_long);
+        
         /// ---------------------------- VXL MISC functions:  ----------------------------
 
         pub fn updatebbox (x0: c_long, y0: c_long, z0: c_long, x1: c_long, y1: c_long, z1: c_long,
